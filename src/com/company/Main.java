@@ -15,7 +15,7 @@ public class Main {
                 for (Movies movies : moviesList) {
                     objectOutputStream.writeObject(movies);
                 }
-                System.out.println("All list has been written correctly to the file: " + file);
+                System.out.println("Whole has been written correctly to the file: " + file);
 
             } catch (IOException e) {
                 e.printStackTrace();
