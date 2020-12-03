@@ -2,33 +2,31 @@ package com.company;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
     public static void saveMoviesToFile(List<Movies> moviesList, File file) {
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file))) {
-            // writeObject spodziewa się obiektu więc konwertujemy rozmiar do typu Integer,
-            // metoda moviesList.size() zwraca bowiem typ prosty int
+        if (moviesList != null) {
+            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file))) {
 
-            Integer sizeOfList = Integer.valueOf(moviesList.size());
-            objectOutputStream.writeObject(sizeOfList);
+                objectOutputStream.writeObject(moviesList.size());
 
-            for (Movies movies : moviesList) {
-                objectOutputStream.writeObject(movies);
+                for (Movies movies : moviesList) {
+                    objectOutputStream.writeObject(movies);
+                }
+                System.out.println("All list has been written correctly to the file: " + file);
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            System.out.println("All list has been written correctly to the file: " + file);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 
     public static List<Movies> readMoviesListFromFile(File file) {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))) {
             List<Movies> moviesList = new ArrayList<>();
-            // konwertujemy obiekt zapisanego wcześniej rozmiaru listy do int
+
             int sizeOfList = (Integer) objectInputStream.readObject();
             if (sizeOfList > 0) {
                 for (int i = 0; i < sizeOfList; i++) {
@@ -38,9 +36,6 @@ public class Main {
             } else {
                 return null;
             }
-//            do {
-//                moviesList.add((Movies) objectInputStream.readObject());
-//            } while (objectInputStream.readObject() == null);
 
         } catch (IOException | ClassNotFoundException e) {
             throw new IllegalStateException();
