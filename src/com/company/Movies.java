@@ -10,7 +10,6 @@ public class Movies implements Serializable {
 
     public Movies(String title) {
         this.title = title;
-
     }
 
     public void setTitle(String title) {
