@@ -34,13 +34,14 @@ public class Main {
                 for (int i = 0; i < sizeOfList; i++) {
                     moviesList.add((Movies) objectInputStream.readObject());
                 }
+                return moviesList;
             } else {
                 return null;
             }
 //            do {
 //                moviesList.add((Movies) objectInputStream.readObject());
 //            } while (objectInputStream.readObject() == null);
-            return moviesList;
+
         } catch (IOException | ClassNotFoundException e) {
             throw new IllegalStateException();
         }
